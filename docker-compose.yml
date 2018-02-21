@@ -1,7 +1,7 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:latest
+  mariadb:
+    image: mariadb:latest
     volumes:
       - "./data/db:/var/lib/mysql"
     restart: always
@@ -26,7 +26,7 @@ services:
   phpfpm:
     image: 10up/phpfpm
     depends_on:
-      - mysql
+      - mariadb
       - memcached
     volumes:
       - "./wordpress:/var/www/html"
