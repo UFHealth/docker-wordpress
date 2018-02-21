@@ -45,7 +45,7 @@ services:
     image: httpd:latest
     volumes:
       - "./wordpress:/usr/local/apache2/htdocs"
-      - "./config/httpd/default.conf:/etc/apache2/sites-available/000-default.conf"
-      - "./config/certs:/etc/apache2/certs"
-      - "./logs/httpd:/var/log/apache2"
+      - "./config/httpd/default.conf:/usr/local/apache2/conf/httpd.conf"
+      - "./config/certs:/usr/local/apache2/certs"
+      - "./logs/httpd:/usr/local/apache2/logs"
     restart: always
