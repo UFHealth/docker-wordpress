@@ -44,8 +44,6 @@ services:
       - "443:443"
     image: chriswiegman/apache:latest
     volumes:
-      - "./wordpress:/usr/local/apache2/htdocs"
-      - "./config/httpd/default.conf:/usr/local/apache2/conf/httpd.conf"
-      - "./config/certs:/usr/local/apache2/certs"
-      - "./logs/httpd:/usr/local/apache2/logs"
+      - "./wordpress:/var/www/html"
+      - "./logs/httpd:/var/log/apache2"
     restart: always
