@@ -42,7 +42,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    image: httpd:latest
+    image: chriswiegman/apache:latest
     volumes:
       - "./wordpress:/usr/local/apache2/htdocs"
       - "./config/httpd/default.conf:/usr/local/apache2/conf/httpd.conf"
