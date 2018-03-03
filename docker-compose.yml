@@ -30,7 +30,7 @@ services:
       - redis
     volumes:
       - "./wordpress:/var/www/html"
-      - "./config/php-fpm/php.ini:/usr/local/etc/php/php.ini"
+      - "./data/debug:/data/debug"
     restart: always
     extra_hosts:
       - "docker-local.dev:172.18.0.1"
