@@ -20,22 +20,22 @@ services:
        - "1080:1080"
      environment:
        MAILCATCHER_PORT: 1025
-  memcached:
-    image: memcached:latest
+  redis:
+    image: redis:latest
     restart: always
   phpfpm:
-    image: 10up/phpfpm
+    image: chriswiegman/php:7.2
     depends_on:
       - mariadb
-      - memcached
+      - redis
     volumes:
       - "./wordpress:/var/www/html"
-      - "./config/php-fpm/php.ini:/usr/local/etc/php/php.ini"
-      - "./config/php-fpm/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
-      - ~/.ssh:/root/.ssh
+      - "./data/debug:/data/debug"
     restart: always
     extra_hosts:
       - "docker-local.dev:172.18.0.1"
+    environment:
+      XDEBUG_HOST: ${XDEBUG_HOST}
   httpd:
     depends_on:
       - phpfpm
