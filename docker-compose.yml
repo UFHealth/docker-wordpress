@@ -24,7 +24,7 @@ services:
     image: redis:latest
     restart: always
   phpfpm:
-    image: chriswiegman/php:7.1
+    image: chriswiegman/php:7.0
     depends_on:
       - mariadb
       - redis
