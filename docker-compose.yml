@@ -34,6 +34,8 @@ services:
     restart: always
     extra_hosts:
       - "docker-local.dev:172.18.0.1"
+    environment:
+      XDEBUG_HOST: ${XDEBUG_HOST}
   httpd:
     depends_on:
       - phpfpm
