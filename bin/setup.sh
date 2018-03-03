@@ -5,6 +5,7 @@ then
 	echo "WordPress config file found."
 else
 	echo "WordPress config file not found. Installing..."
+	export XDEBUG_HOST=$(ipconfig getifaddr en0) # Specific to Macintosh
 	docker-compose exec --user www-data phpfpm wp core download
 	docker-compose exec --user www-data phpfpm wp core config --dbhost=mariadb --dbname=wordpress --dbuser=root --dbpass=password
 fi
