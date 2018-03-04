@@ -71,6 +71,10 @@ Alternatively, there is a script in the `/bin` directory that allows you to SSH 
 
 MailCatcher runs a simple local SMTP server which catches any message sent to it, and displays it in it's built-in web interface. All emails sent by WordPress will be intercepted by MailCatcher. To view emails in the MailCatcher web interface, navigate to `http://localhost:1080` in your web browser of choice.
 
+## PHP
+
+PHP versions from 5.6-7.2 are available. While the stack defaults to PHP 7.2 all you need to do is change the `image: chriswiegman/php:7.2` line from 7.2 to the version you want to use (5.6, 7.0, 7.1 or 7.2) and restart your stack.
+
 ## Credits
 
 This project is based off of [similar work](https://github.com/10up/wp-local-docker) by [10up](https://10up)
