@@ -1,7 +1,7 @@
 version: '3'
 services:
   mariadb:
-    image: mariadb:latest
+    image: mariadb
     volumes:
       - "./data/db:/var/lib/mysql"
     restart: always
@@ -42,7 +42,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    image: chriswiegman/apache:latest
+    image: chriswiegman/apache
     volumes:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
