@@ -5,29 +5,15 @@ services:
     volumes:
       - "./data/db:/var/lib/mysql"
     restart: always
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: password
-  mailcatcher:
-     image: schickling/mailcatcher
-     restart: always
-     ports:
-       - "1025:1025"
-       - "1080:1080"
-     environment:
-       MAILCATCHER_PORT: 1025
-  redis:
-    image: redis:latest
-    restart: always
   phpfpm:
     image: chriswiegman/php:7.2
     depends_on:
       - mariadb
-      - redis
     volumes:
       - "./wordpress:/var/www/html"
       - "./data/debug:/data/debug"
@@ -37,11 +23,10 @@ services:
   httpd:
     depends_on:
       - phpfpm
-    ports:
-      - "80:80"
-      - "443:443"
     image: chriswiegman/apache
     volumes:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
     restart: always
+    environment:
+      - VIRTUAL_HOST=wordpress.local

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mailcatcher:
+    image: schickling/mailcatcher
+    restart: always
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+    environment:
+      MAILCATCHER_PORT: 1025
+  redis:
+    image: redis:latest
+    restart: always
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  whoami:
+    image: jwilder/whoami
+    environment:
+      - VIRTUAL_HOST=whoami.local
