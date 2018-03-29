@@ -4,7 +4,7 @@
 export XDEBUG_HOST=$(ipconfig getifaddr en0) # Specific to Macintosh
 
 if [ $# -gt 0 ]; then
-    docker-compose "$@"
+    docker-compose -p ${PWD##*/} "$@" # Specify project name based on current directory
 else
     docker-compose ps
 fi
