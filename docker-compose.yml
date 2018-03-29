@@ -5,6 +5,8 @@ services:
     volumes:
       - "./data/db:/var/lib/mysql"
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: wordpress
@@ -13,6 +15,9 @@ services:
   mailcatcher:
      image: schickling/mailcatcher
      restart: always
+     ports:
+       - "1025:1025"
+       - "1080:1080"
      environment:
        MAILCATCHER_PORT: 1025
   redis:
@@ -32,6 +37,9 @@ services:
   httpd:
     depends_on:
       - phpfpm
+    ports:
+      - "80:80"
+      - "443:443"
     image: chriswiegman/apache
     volumes:
       - "./wordpress:/var/www/html"
