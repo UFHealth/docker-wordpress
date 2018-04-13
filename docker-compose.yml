@@ -1,9 +1,5 @@
 version: '3'
 
-networks:
-  ouroboros_default:
-    external: true
-
 services:
   mailcatcher:
     image: schickling/mailcatcher
@@ -52,9 +48,6 @@ services:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
     restart: always
-    networks:
-      - ouroboros_default
-      - default
     labels:
       - 'traefik.frontend.rule=Host:docker-wordpress.our'
       - 'traefik.domain=docker-wordpress.our'
