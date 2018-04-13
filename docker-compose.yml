@@ -1,8 +1,8 @@
 version: '3'
 
 networks:
-  docker-wordpress:
-    driver: bridge
+  ouroboros_default:
+    external: true
 
 services:
   mariadb:
@@ -15,10 +15,6 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: password
-    labels:
-      - "traefik.enable=false"
-    networks:
-      - docker-wordpress
   mailcatcher:
     image: schickling/mailcatcher
     restart: always
@@ -26,17 +22,9 @@ services:
       - "1080:1080"
     environment:
       MAILCATCHER_PORT: 1025
-    labels:
-      - "traefik.enable=false"
-    networks:
-      - docker-wordpress
   redis:
     image: redis:latest
     restart: always
-    labels:
-      - "traefik.enable=false"
-    networks:
-      - docker-wordpress
   phpfpm:
     image: chriswiegman/php:7.2
     depends_on:
@@ -48,10 +36,6 @@ services:
     restart: always
     environment:
       XDEBUG_HOST: ${XDEBUG_HOST}
-    labels:
-      - "traefik.enable=false"
-    networks:
-      - docker-wordpress
   httpd:
     depends_on:
       - phpfpm
@@ -61,7 +45,9 @@ services:
       - "./logs/httpd:/var/log/apache2"
     restart: always
     networks:
-      - docker-wordpress
+      - ouroboros_default
+      - default
     labels:
       - 'traefik.frontend.rule=Host:docker-wordpress.our'
       - 'traefik.domain=docker-wordpress.our'
+      - "traefik.docker.network=ouroboros_default"
