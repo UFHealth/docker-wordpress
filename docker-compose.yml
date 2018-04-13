@@ -4,8 +4,6 @@ services:
   mailcatcher:
     image: schickling/mailcatcher
     restart: always
-    ports:
-      - "1080:1080"
     environment:
       MAILCATCHER_PORT: 1025
   mariadb:
