@@ -1,8 +1,6 @@
 version: '3'
 
 networks:
-  ouroboros_default:
-    external: true
   docker-wordpress:
     driver: bridge
 
@@ -63,8 +61,7 @@ services:
       - "./logs/httpd:/var/log/apache2"
     restart: always
     networks:
-      - ouroboros_default
       - docker-wordpress
     labels:
-      - 'traefik.frontend.rule=Host:wordpress.our'
-      - 'traefik.domain=wordpress.our'
+      - 'traefik.frontend.rule=Host:docker-wordpress.our'
+      - 'traefik.domain=docker-wordpress.our'
