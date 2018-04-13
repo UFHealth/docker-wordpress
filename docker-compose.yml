@@ -8,8 +8,6 @@ services:
       - "1080:1080"
     environment:
       MAILCATCHER_PORT: 1025
-    labels:
-      - "traefik.enable=false"
   mariadb:
     image: mariadb
     volumes:
@@ -20,13 +18,9 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: password
-    labels:
-      - "traefik.enable=false"
   redis:
     image: redis:latest
     restart: always
-    labels:
-      - "traefik.enable=false"
   phpfpm:
     image: chriswiegman/php:7.2
     depends_on:
@@ -38,8 +32,6 @@ services:
     restart: always
     environment:
       XDEBUG_HOST: ${XDEBUG_HOST}
-    labels:
-      - "traefik.enable=false"
   httpd:
     depends_on:
       - phpfpm
@@ -48,7 +40,3 @@ services:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
     restart: always
-    labels:
-      - 'traefik.frontend.rule=Host:docker-wordpress.our'
-      - 'traefik.domain=docker-wordpress.our'
-      - "traefik.docker.network=ouroboros_default"
