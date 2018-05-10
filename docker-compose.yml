@@ -28,12 +28,13 @@ services:
       - "./wordpress:/var/www/html"
       - "./data/debug:/data/debug"
     restart: always
-    environment:
-      XDEBUG_HOST: ${XDEBUG_HOST}
   httpd:
     depends_on:
       - phpfpm
     image: chriswiegman/apache
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
