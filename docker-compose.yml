@@ -1,11 +1,19 @@
 version: '3'
 
+networks:
+  default:
+    driver: bridge
+  ouroboros_default:
+    external: true
+
 services:
   mailcatcher:
     image: schickling/mailcatcher
     restart: always
     environment:
       MAILCATCHER_PORT: 1025
+    networks:
+      - default
   mariadb:
     image: mariadb
     volumes:
@@ -16,9 +24,13 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: password
+    networks:
+      - default
   redis:
     image: redis:latest
     restart: always
+    networks:
+      - default
   phpfpm:
     image: chriswiegman/php:7.2
     depends_on:
@@ -28,14 +40,21 @@ services:
       - "./wordpress:/var/www/html"
       - "./data/debug:/data/debug"
     restart: always
+    networks:
+      - default
   httpd:
     depends_on:
       - phpfpm
     image: chriswiegman/apache
-    ports:
-      - "80:80"
-      - "443:443"
     volumes:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
     restart: always
+    networks:
+      - ouroboros_default
+      - default
+    labels:
+      - 'traefik.frontend.rule=Host:docker-wordpress.test'
+      - 'traefik.domain=docker-wordpress.test'
+      - 'traefik.enable=true'
+
