@@ -14,6 +14,8 @@ services:
       MAILCATCHER_PORT: 1025
     networks:
       - default
+    labels:
+      - 'traefik.enable=false'
   mariadb:
     image: mariadb
     volumes:
@@ -26,11 +28,15 @@ services:
       MYSQL_PASSWORD: password
     networks:
       - default
+    labels:
+      - 'traefik.enable=false'
   redis:
     image: redis:latest
     restart: always
     networks:
       - default
+    labels:
+      - 'traefik.enable=false'
   phpfpm:
     image: chriswiegman/php:7.2
     depends_on:
@@ -42,6 +48,8 @@ services:
     restart: always
     networks:
       - default
+    labels:
+      - 'traefik.enable=false'
   httpd:
     depends_on:
       - phpfpm
