@@ -65,4 +65,5 @@ services:
       - 'traefik.frontend.rule=Host:docker-wordpress.test'
       - 'traefik.domain=docker-wordpress.test'
       - 'traefik.enable=true'
+      - 'traefik.docker.network=ouroboros_default'
 
