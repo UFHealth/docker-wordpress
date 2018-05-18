@@ -59,8 +59,8 @@ services:
       - "./logs/httpd:/var/log/apache2"
     restart: always
     networks:
-      - ouroboros_default
       - default
+      - ouroboros_default
     labels:
       - 'traefik.frontend.rule=Host:docker-wordpress.test'
       - 'traefik.domain=docker-wordpress.test'
