@@ -27,7 +27,7 @@ services:
     labels:
       - 'traefik.enable=false'
   phpfpm:
-    image: chriswiegman/php:7.2
+    image: ufhweb/php:7.2
     depends_on:
       - mariadb
       - redis
@@ -42,7 +42,7 @@ services:
   httpd:
     depends_on:
       - phpfpm
-    image: chriswiegman/apache
+    image: ufhweb/apache:2.4
     volumes:
       - "./wordpress:/var/www/html"
       - "./logs/httpd:/var/log/apache2"
