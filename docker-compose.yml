@@ -19,18 +19,10 @@ services:
       - default
     labels:
       - 'traefik.enable=false'
-  redis:
-    image: redis:latest
-    restart: always
-    networks:
-      - default
-    labels:
-      - 'traefik.enable=false'
   phpfpm:
-    image: ufhweb/php:7.2
+    image: ufhweb/php:7.2-wordpress
     depends_on:
       - mariadb
-      - redis
     volumes:
       - "./wordpress:/var/www/html"
       - "./data/debug:/data/debug"
@@ -39,6 +31,8 @@ services:
       - default
     labels:
       - 'traefik.enable=false'
+    environment:
+      XDEBUG_HOST: ${XDEBUG_HOST}
   httpd:
     depends_on:
       - phpfpm
