@@ -31,6 +31,8 @@ services:
       - default
     labels:
       - 'traefik.enable=false'
+    environment:
+      XDEBUG_HOST: ${XDEBUG_HOST}
   httpd:
     depends_on:
       - phpfpm
