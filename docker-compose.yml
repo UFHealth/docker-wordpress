@@ -26,6 +26,7 @@ services:
     volumes:
       - "./wordpress:/var/www/html"
       - "./data/debug:/data/debug"
+      - "./Docker/logs/php:/var/log/php-fpm"
     restart: always
     networks:
       - default
