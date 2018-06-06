@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 # Set environment variables for dev
-export XDEBUG_HOST=$(ipconfig getifaddr en0) # Specific to Macintosh
+if [ "Darwin" == $(uname -s) ]; then
+    export XDEBUG_HOST=$(ipconfig getifaddr en0)
+else
+    export XDEBUG_HOST=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+fi
 
 if [ $# -gt 0 ]; then
     docker-compose -p ${PWD##*/} "$@" # Specify project name based on current directory
